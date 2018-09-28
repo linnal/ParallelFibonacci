@@ -14,8 +14,18 @@ defmodule ParallelFibonacci do
     end
   end
 
-  defp fib_calc(0), do: 0
-  defp fib_calc(1), do: 1
-  defp fib_calc(n), do: fib_calc(n - 1) + fib_calc(n - 2)
+  defp fib_calc(n) do
+    _fib_calc(n, 1, [1, 0])
+  end
+ 
+  defp _fib_calc(n, m, mem) when n == m+1 do
+    Enum.sum(mem)
+  end
+
+  defp _fib_calc(n, m, mem) do
+    next = Enum.sum(mem)
+    [prev, _] = mem
+    _fib_calc(n, m+1, [next, prev])
+  end
 end
 
